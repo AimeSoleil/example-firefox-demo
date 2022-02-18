@@ -2,25 +2,24 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   // for background call server api
   console.log('chrome.onMessage')
-  const requestOfApi = getSampleData()
-  if (requestOfApi instanceof Promise) {
+  const xhrResponse = getSampleData()
+  if (xhrResponse instanceof Promise) {
     // NOTES: This is a successful case ======================
-    // requestOfApi
-    //   .then(result => {
-    //     const res = _.omit(result, ['request', 'config'])
+    // xhrResponse
+    //   .then(response => {
+    //     const res = _.omit(response, ['request', 'config']) // Omit result & config(Actually, it's related to config.cancelToken.Promise) in xhrResponse; 
     //     sendResponse(res)
     //   })
     //   .catch(error => {
     //     const err = { errorMsg: 'this is a error message'}
     //     sendResponse(err)
     //   })
-    requestOfApi
-      .then(result => {
-        sendResponse(result) // do not omit request/config
+    xhrResponse
+      .then(response => {
+        sendResponse(response) // It will return undefined response to content_script.js in firefox but good one in chrome.
       })
       .catch(error => {
-        const err = { errorMsg: 'this is a error message'}
-        sendResponse(err)
+        sendResponse(error) // It will return undefined error to content_script.js in firefox but empty object {} in chrome.
       })
   }
   // async
