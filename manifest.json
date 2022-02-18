@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "Sample",
+  "version": "1.0",
+
+  "description": "Sample Demo",
+
+  "background": {
+    "scripts": ["lodash.js", "axios.js","background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.mozilla.org/*"],
+      "js": ["content_script.js"]
+    }
+  ],
+  "permissions": ["contextMenus"]
+}
