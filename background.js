@@ -1,4 +1,3 @@
-// Refresh Amazon pages, make requests to amazon pages
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   // for background call server api
   console.log('chrome.onMessage')
